@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Giziku API Documentation</h1>
+        <p>
+          <a href="https://github.com/Giziku-C241-PS049" target="_blank"
+            >GitHub Repository</a
+          >
+        </p>
+      </header>
+
+      <h2>Base URL</h2>
+      <p>http://127.0.0.1:8000</p>
+      <p>http://127.0.0.1:8000/predict</p>
+      <p>http://127.0.0.1:8000/rekomendasi/</p>
+
+      <h2>Endpoints</h2>
+
+      <div class="endpoint">
+        <h3>Register User</h3>
+        <p><strong>POST</strong> /register</p>
+        <h4>Request Body:</h4>
+        <pre>
+{
+  "email": "string",
+  "password": "string",
+  "username": "string"
+}</pre
+        >
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "User registered successfully",
+  "data": {
+    "email": "string",
+    "username": "string"
+  }
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "User already exists" // atau
+}</pre
+        >
+        <pre>
+{
+    "status": "error",
+    "message": "Server error",
+    "error": "error message"
+  }</pre
+        >
+      </div>
+
+      <div class="endpoint">
+        <h3>Login User</h3>
+        <p><strong>POST</strong> /login</p>
+        <h4>Request Body:</h4>
+        <pre>
+{
+  "email": "string",
+  "password": "string"
+}</pre
+        >
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "User logged in successfully",
+  "data": {
+    "email": "string",
+    "username": "string",
+    "token": "string"
+  }
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "Invalid credentials"
+}</pre
+        >
+        <pre>
+{
+    "status": "error",
+    "message": "Server error",
+    "error": "error message"
+  }</pre
+        >
+      </div>
+
+      <div class="endpoint">
+        <h3>Update Username</h3>
+        <p><strong>PUT</strong> /update-username</p>
+        <h4>Headers:</h4>
+        <pre>Authorization: Bearer &lt;token&gt;</pre>
+        <h4>Request Body:</h4>
+        <pre>
+{
+  "newUsername": "string"
+}</pre
+        >
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "Username updated successfully",
+  "data": {
+    "email": "string",
+    "newUsername": "string"
+  }
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "New username is required" 
+}</pre
+        >
+        <pre>
+{
+    "status": "error",
+    "message": "Server error",
+    "error": "error message"
+  }</pre
+        >
+      </div>
+
+      <div class="endpoint">
+        <h3>Update Password</h3>
+        <p><strong>PUT</strong> /update-password</p>
+        <h4>Headers:</h4>
+        <pre>Authorization: Bearer &lt;token&gt;</pre>
+        <h4>Request Body:</h4>
+        <pre>
+{
+  "newPassword": "string"
+}</pre
+        >
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "Password updated successfully"
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "New password is required" // atau
+}</pre
+        >
+        <pre>
+{
+    "status": "error",
+    "message": "Server error",
+    "error": "error message"
+}</pre
+        >
+      </div>
+
+      <div class="endpoint">
+        <h3>Delete Account</h3>
+        <p><strong>DELETE</strong> /delete-account</p>
+        <h4>Headers:</h4>
+        <pre>Authorization: Bearer &lt;token&gt;</pre>
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "User account deleted successfully"
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "Server error",
+  "error": "error message"
+}</pre
+        >
+      </div>
+
+      <div class="endpoint">
+        <h3>Predict Image</h3>
+        <p><strong>POST</strong> /predict</p>
+          <h4>Request Body:</h4>
+          <pre>Masukkan data berupa gambar</pre>
+
+          <h4>Response:</h4>
+          <pre>
+{
+  "data": "predicted_value"
+}</pre>
+
+          <h4>Error Response:</h4>
+          <pre>
+{
+  "status": "error",
+  "message": "Image must be jpg or png format!" 
+}</pre>
+        
+      </div>
+
+      <div class="endpoint">
+        <h3>Food Recommendations</h3>
+        <p><strong>POST</strong> /rekomendasi</p>
+          <h4>Request Body:</h4>
+          <pre>
+{
+  "berat_badan": 70,
+  "tinggi_badan": 170,
+  "pantangan": "milk, gluten"
+}</pre>
+
+          <h4>Response:</h4>
+          <pre>
+{
+  "BMI": 24.22,
+  "rekomendasi": 
+  [
+    {
+      "rendah-protein-rendah-lemak": ["NamaMakanan1", "NamaMakanan2", "NamaMakanan3"]
+    },
+    {
+      "rendah-protein-tinggi-lemak": ["NamaMakanan4", "NamaMakanan5"]
+    },
+    {
+      "tinggi-protein-rendah-lemak": ["NamaMakanan6", "NamaMakanan7"]
+    }
+  ]
+}</pre>
+
+          <h4>Error Response:</h4>
+          <pre>
+{
+  "status": "error",
+  "message": "Tidak ada rekomendasi makanan yang sesuai." 
+}</pre>
+        
+      </div>
+
+      <div class="endpoint">
+        <h3>Logout</h3>
+        <p><strong>POST</strong> /logout</p>
+        <h4>Headers:</h4>
+        <pre>Authorization: Bearer &lt;token&gt;</pre>
+        <h4>Response:</h4>
+        <pre>
+{
+  "status": "success",
+  "message": "Logged out successfully"
+}</pre
+        >
+        <h4>Error Response:</h4>
+        <pre>
+{
+  "status": "error",
+  "message": "Server error",
+  "error": "error message"
+}</pre
+        >
+      </div>
+    </div>
+  </body>
+</html>
